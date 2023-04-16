@@ -34,9 +34,7 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_NAME = process.env.DB_NAME;
 
 mongoose
-  .connect(
-    `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.z3tzyxr.mongodb.net/${DB_NAME}?retryWrites=true&w=majority`
-  )
+  .connect(process.env.MONGODB_URL)
   .then(() => console.log("DB Ok!"))
   .catch((err) => console.log("Error!", err));
 const app = express();
@@ -96,7 +94,7 @@ app.patch(
   update
 );
 
-app.listen(PORT, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
   if (err) {
     return console.log(err);
   }
